@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vrct="using:VRCT"
+             x:Class="VRCT.ResultPage">
+
+    <VerticalStackLayout
+        Spacing="10"
+        Padding="20,0"
+        VerticalOptions="Fill">
+
+
+        <HorizontalStackLayout>
+            <Label
+                Text="Position: "
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="18"
+                HorizontalOptions="Start" />
+            <Label x:Name="Position"
+                   FontSize="18" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Text="Hands: "
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="18"
+                HorizontalOptions="Start" />
+            <Label x:Name="Hands"
+                   FontSize="18" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label
+                Text="Difficulty: "
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="18"
+                HorizontalOptions="Start" />
+            <Label x:Name="Difficulty"
+                   FontSize="18" />
+        </HorizontalStackLayout>
+        <!-- -->
+        <!-- <HorizontalStackLayout> -->
+        <!--     <Label -->
+        <!--         Text="Exercises: " -->
+        <!--         SemanticProperties.HeadingLevel="Level1" -->
+        <!--         FontSize="18" -->
+        <!--         HorizontalOptions="Start" /> -->
+        <!--     <VerticalStackLayout> -->
+        <!--         <Label -->
+        <!--             Text="TBD" -->
+        <!--             FontAttributes="Bold" /> -->
+        <!--         <Label -->
+        <!--             Text="TBD" -->
+        <!--             FontAttributes="Bold" /> -->
+        <!--         <Label -->
+        <!--             Text="TBD" -->
+        <!--             FontAttributes="Bold" /> -->
+        <!--     </VerticalStackLayout> -->
+        <!-- </HorizontalStackLayout> -->
+
+        <ListView x:Name="Exercises" BackgroundColor="Transparent" RowHeight="70">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vrct:Excercise">
+                    <TextCell 
+                        TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
+                        Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!-- <ListView x:Name="Exercises" ItemsSource="{Binding applicableList}"> -->
+        <!--     <ListView.ItemTemplate> -->
+        <!--         <DataTemplate x:DataType="vrct:Excercise"> -->
+        <!--             <TextCell -->
+        <!--                 Text="{Binding Name}" -->
+        <!--                 Detail="{Binding Difficulty}" /> -->
+        <!--         </DataTemplate> -->
+        <!--     </ListView.ItemTemplate> -->
+        <!-- </ListView> -->
+        <!-- <ListView ItemsSource="{Binding Exercises}"> -->
+        <!--     <ListView.ItemTemplate> -->
+        <!--         <DataTemplate> -->
+        <!--             <ViewCell> -->
+        <!--                 <Label -->
+        <!--                     Text="{Binding Exercise}" -->
+        <!--                     FontAttributes="Bold" /> -->
+        <!--             </ViewCell> -->
+        <!--         </DataTemplate> -->
+        <!--     </ListView.ItemTemplate> -->
+        <!-- </ListView> -->
+
+    </VerticalStackLayout>
+
+</ContentPage>
+
+<!-- <Label  -->
+        <!--     x:Name="q" -->
+        <!--     Text="#" -->
+        <!--     VerticalOptions="Center"  -->
+        <!--     HorizontalOptions="Center" /> -->
+        <!-- <Label  -->
+        <!--     x:Name="w" -->
+        <!--     Text="#" -->
+        <!--     VerticalOptions="Center"  -->
+        <!--     HorizontalOptions="Center" /> -->
+        <!-- <Label  -->
+        <!--     x:Name="e" -->
+        <!--     Text="#" -->
+        <!--     VerticalOptions="Center"  -->
+        <!--     HorizontalOptions="Center" /> -->
+        <!-- <Label  -->
+        <!--     x:Name="r" -->
+        <!--     Text="#" -->
+        <!--     VerticalOptions="Center"  -->
+        <!--     HorizontalOptions="Center" /> -->
+        <!-- <Label  -->
+        <!--     x:Name="t" -->
+        <!--     Text="#" -->
+        <!--     VerticalOptions="Center"  -->
+        <!--     HorizontalOptions="Center" /> -->
+        <!-- <Label  -->
+        <!--     x:Name="y" -->
+        <!--     Text="#" -->
+        <!--     VerticalOptions="Center"  -->
+        <!--     HorizontalOptions="Center" /> -->
+        <!-- <Label  -->
+        <!--     x:Name="u" -->
+        <!--     Text="#" -->
+        <!--     VerticalOptions="Center"  -->
+        <!--     HorizontalOptions="Center" /> -->

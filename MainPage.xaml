@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VRCT.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="10"
+            Padding="20,0"
+            VerticalOptions="Fill">
+            
+            <Label
+                Text="BodyParts"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <Picker x:Name="BodyPartPicker" SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Legs</x:String>
+                        <x:String>Knee</x:String>
+                        <x:String>Hands</x:String>
+                        <x:String>Spine</x:String>
+                        <x:String>Shoulder</x:String>
+                        <x:String>Balance</x:String>
+                        <x:String>Wrist</x:String>
+                        <x:String>Hand/eye coordination</x:String>
+                        <x:String>Cognitive</x:String>
+                        <x:String>Upper body</x:String>
+                        <x:String>Focus</x:String>
+                        <x:String>Hip/Knee flexion</x:String>
+                        <x:String>Weight shifting</x:String>
+                        <x:String>Thighs</x:String>
+                        <x:String>Lower Limb</x:String>
+                        <x:String>Lungs</x:String>
+                        <x:String>Calming body and mind</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label
+                Text="Hands"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="Left"
+                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Right"
+                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Both"
+                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Position"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="Lay"
+                    CheckedChanged="OnPositionRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Sit"
+                    CheckedChanged="OnPositionRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Stand"
+                    CheckedChanged="OnPositionRadioButtonCheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Doctor Difficulty"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="Easy"
+                    CheckedChanged="OnDoctorDifficultyRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Medium"
+                    CheckedChanged="OnDoctorDifficultyRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Hard"
+                    CheckedChanged="OnDoctorDifficultyRadioButtonCheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Doctor Duration: 0"
+                x:Name="DoctorValue"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <Slider Maximum="100"
+                    ValueChanged="OnDoctorValueSliderValueChanged" 
+                    Value="0"/>
+
+            <Label
+                Text="Patient Difficulty"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="Easy"
+                    CheckedChanged="OnPatientDifficultyRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Medium"
+                    CheckedChanged="OnPatientDifficultyRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Hard"
+                    CheckedChanged="OnPatientDifficultyRadioButtonCheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Patient Duration: 0"
+                x:Name="PatientValue"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <Slider Maximum="100"
+                    ValueChanged="OnPatientValueSliderValueChanged" 
+                    Value="0"/>
+
+            <Label
+                Text="Patient Exercise Type"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="Calm"
+                    CheckedChanged="OnPatientExerciseRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Sport"
+                    CheckedChanged="OnPatientExerciseRadioButtonCheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Heart Rate Patient: 0"
+                x:Name="Hrp"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <Slider 
+                Minimum="0" 
+                Maximum="200"
+                ValueChanged="OnHearthRatePatientSliderValueChanged"
+                Value="0"/>
+
+            <Button
+                x:Name="GetBtn"
+                Text="Get exercises"
+                Clicked="OnGetClicked"
+                HorizontalOptions="Center"
+                WidthRequest="800"
+            />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
