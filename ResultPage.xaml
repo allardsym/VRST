@@ -30,15 +30,6 @@
                    FontSize="18" />
         </HorizontalStackLayout>
 
-        <HorizontalStackLayout>
-            <Label
-                Text="Difficulty: "
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="18"
-                HorizontalOptions="Start" />
-            <Label x:Name="Difficulty"
-                   FontSize="18" />
-        </HorizontalStackLayout>
 
         <HorizontalStackLayout>
             <Label

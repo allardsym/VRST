@@ -73,13 +73,6 @@ public partial class ResultPage : ContentPage
 		// 	_ => 0
 		// };
 		//
-		Difficulty.Text = " " + difficulty switch
-		{
-			<= 34 => "Easy",
-			<= 67 => "Medium",
-			> 67 => "Hard",
-			_ => Difficulty.Text
-		};
 
 		foreach (var excercise in excerciseList)
 		{
@@ -94,8 +87,8 @@ public partial class ResultPage : ContentPage
 			// if (!excercise.Intensity.Contains(intensityInt))
 			// 	continue;
 			
-			durationInt += ((int)(difficulty * excercise.Intensity[0]));
-			durationString = ((int)(difficulty * excercise.Intensity[0])).ToString() + "s";
+			durationInt += ((int)(difficulty / excercise.Intensity[0]));
+			durationString = ((int)(difficulty / excercise.Intensity[0])).ToString() + "s";
 			applicableList.Add(new ListExercise(
 				excercise.Name, 
 				difficultyString,
