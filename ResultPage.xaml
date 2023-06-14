@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vrct="using:VRCT"
+             xmlns:vrct1="clr-namespace:VRCT"
              x:Class="VRCT.ResultPage">
 
     <VerticalStackLayout
@@ -38,6 +39,16 @@
             <Label x:Name="Difficulty"
                    FontSize="18" />
         </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label
+                Text="Time of therapy: "
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="18"
+                HorizontalOptions="Start" />
+            <Label x:Name="Time"
+                   FontSize="18" />
+        </HorizontalStackLayout>
         <!-- -->
         <!-- <HorizontalStackLayout> -->
         <!--     <Label -->
@@ -60,10 +71,32 @@
 
         <ListView x:Name="Exercises" BackgroundColor="Transparent" RowHeight="70">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="vrct:Excercise">
-                    <TextCell 
-                        TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
-                        Text="{Binding Name}"/>
+                <DataTemplate x:DataType="vrct1:ListExercise">
+
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Text="{Binding Name}"
+                                FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                   Text="{Binding Difficulty}"
+                                   VerticalOptions="End" />
+                            <Label Grid.Row="2"
+                                   Text="{Binding Duration}"
+                                   VerticalOptions="End" />
+                        </Grid>
+                    </ViewCell>
+                    <!-- <TextCell -->
+                    <!--     TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" -->
+                    <!--     Text="{Binding Name}"/> -->
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

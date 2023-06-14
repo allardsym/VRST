@@ -1,16 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="VRCT.MainPage">
-
     <ScrollView>
         <VerticalStackLayout
             Spacing="10"
             Padding="20,0"
             VerticalOptions="Fill">
-            
+
+
             <Label
-                Text="BodyParts"
+                Text="Therapist input"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                FontAttributes="Bold"
+                HorizontalOptions="Start" />
+
+            <Line X1="0"
+                  Y1="0"
+                  X2="2000"
+                  Y2="0"
+                  Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" 
+                  HeightRequest="1"/>
+
+            <Label
+                Text="Category"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
@@ -39,23 +54,6 @@
             </Picker>
 
             <Label
-                Text="Hands"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="15"
-                HorizontalOptions="Start" />
-            <HorizontalStackLayout>
-                <RadioButton 
-                    Content="Left"
-                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
-                <RadioButton 
-                    Content="Right"
-                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
-                <RadioButton 
-                    Content="Both"
-                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
-            </HorizontalStackLayout>
-
-            <Label
                 Text="Position"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
@@ -73,7 +71,24 @@
             </HorizontalStackLayout>
 
             <Label
-                Text="Doctor Difficulty"
+                Text="Hands"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="Left"
+                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Right"
+                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Both"
+                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Therapist Difficulty"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
@@ -90,7 +105,7 @@
             </HorizontalStackLayout>
 
             <Label
-                Text="Doctor Duration: 0"
+                Text="Therapist Duration: 0"
                 x:Name="DoctorValue"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
@@ -98,6 +113,22 @@
             <Slider Maximum="100"
                     ValueChanged="OnDoctorValueSliderValueChanged" 
                     Value="0"/>
+
+
+
+            <Label
+                Text="Patient preference input"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                FontAttributes="Bold"
+                HorizontalOptions="Start" />
+
+            <Line X1="0"
+                  Y1="0"
+                  X2="2000"
+                  Y2="0"
+                  Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" 
+                  HeightRequest="1"/>
 
             <Label
                 Text="Patient Difficulty"
@@ -125,6 +156,11 @@
             <Slider Maximum="100"
                     ValueChanged="OnPatientValueSliderValueChanged" 
                     Value="0"/>
+            <!-- <Entry  -->
+            <!--     x:Name="HrEntry" -->
+            <!--     Keyboard="Numeric" -->
+            <!--     TextChanged="InputView_OnTextChanged"> -->
+            <!-- </Entry> -->
 
             <Label
                 Text="Patient Exercise Type"
@@ -140,17 +176,33 @@
                     CheckedChanged="OnPatientExerciseRadioButtonCheckedChanged" />
             </HorizontalStackLayout>
 
+
+
             <Label
-                Text="Heart Rate Patient: 0"
+                Text="Patient biodata input"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                FontAttributes="Bold"
+                HorizontalOptions="Start" />
+
+            <Line X1="0"
+                  Y1="0"
+                  X2="2000"
+                  Y2="0"
+                  Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" 
+                  HeightRequest="1"/>
+
+            <Label
+                Text="Heart Rate Patient"
                 x:Name="Hrp"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
-            <Slider 
-                Minimum="0" 
-                Maximum="200"
-                ValueChanged="OnHearthRatePatientSliderValueChanged"
-                Value="0"/>
+            <Entry 
+                x:Name="HrEntry"
+                Keyboard="Numeric"
+                TextChanged="InputView_OnTextChanged">
+            </Entry>
 
             <Button
                 x:Name="GetBtn"

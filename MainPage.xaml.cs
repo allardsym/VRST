@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Reflection.Metadata;
+using CommunityToolkit.Maui.Behaviors;
 
 namespace VRCT;
 
@@ -9,7 +10,6 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
-
 	}
 
 	void OnPickerSelectedIndexChanged(object sender, EventArgs e)
@@ -84,12 +84,29 @@ public partial class MainPage : ContentPage
 	{
 		var value = (int)args.NewValue;
 		Hrp.Text = $"Heart Rate Patient: {value}";
-		
+
 		Dataset.HeartRatePatient = value switch
 		{
 			<= 100 => 100,
 			<= 140 => 67,
 			> 140 => 34
 		};
+	}
+
+	private void InputView_OnTextChanged(object sender, TextChangedEventArgs e)
+	{
+		int value;
+		if (!int.TryParse(e.NewTextValue, out value))
+			HrEntry.Text = "";
+
+		if (value > 0 && value < 300)
+			Dataset.HeartRatePatient = value switch
+			{
+				<= 100 => 100,
+				<= 140 => 67,
+				> 140 => 34
+			};
+		else
+			HrEntry.Text = "";
 	}
 }

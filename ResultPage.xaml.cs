@@ -5,21 +5,24 @@ namespace VRCT;
 public partial class ResultPage : ContentPage
 {
 	private List<Excercise> excerciseList = new List<Excercise>();
-	private List<Excercise> applicableList = new List<Excercise>();
+	private List<ListExercise> applicableList = new List<ListExercise>();
 	
 	private int handsInt = 0;
 	private int positionInt = 0;
 	private int typeInt = 0;
 	private int difficultyInt = 0;
 	private int intensityInt = 0;
-
+	private string difficultyString;
+	private int durationInt;
+	private string durationString;
+	
 	public ResultPage()
 	{
 		InitializeComponent();
 		AddExercises();
 
-		Hands.Text = Dataset.Hands;
-		Position.Text = Dataset.Position;
+		Position.Text = " " + Dataset.Position;
+		Hands.Text = " " + Dataset.Hands;
 
 		handsInt = Dataset.Hands switch
 		{
@@ -53,16 +56,24 @@ public partial class ResultPage : ContentPage
 			_ => 0
 		};
 
-		var intensity = (0.6 * Dataset.DoctorDifficulty) + (0.3 * Dataset.HeartRatePatient) + (0.1 * Dataset.PatientDifficulty);
-		intensityInt = intensity switch
+		difficultyString = difficulty switch
 		{
-			<= 34 => 1,
-			<= 67 => 2,
-			> 67 => 3,
-			_ => 0
+			<= 34 => "Easy",
+			<= 67 => "Medium",
+			> 67 => "Hard",
+			_ => "Easy",
 		};
+
+		// var intensity = (0.6 * Dataset.DoctorDifficulty) + (0.3 * Dataset.HeartRatePatient) + (0.1 * Dataset.PatientDifficulty);
+		// intensityInt = intensity switch
+		// {
+		// 	<= 34 => 1,
+		// 	<= 67 => 2,
+		// 	> 67 => 3,
+		// 	_ => 0
+		// };
 		//
-		Difficulty.Text = difficulty switch
+		Difficulty.Text = " " + difficulty switch
 		{
 			<= 34 => "Easy",
 			<= 67 => "Medium",
@@ -78,14 +89,20 @@ public partial class ResultPage : ContentPage
 				continue;
 			if (!excercise.Type.Contains(typeInt))
 				continue;
-			if (!excercise.Difficulty.Contains(difficultyInt))
-				continue;
-			if (!excercise.Intensity.Contains(intensityInt))
-				continue;
+			// if (!excercise.Difficulty.Contains(difficultyInt))
+			// 	continue;
+			// if (!excercise.Intensity.Contains(intensityInt))
+			// 	continue;
 			
-			applicableList.Add(excercise);
+			durationInt += ((int)(difficulty * excercise.Intensity[0]));
+			durationString = ((int)(difficulty * excercise.Intensity[0])).ToString() + "s";
+			applicableList.Add(new ListExercise(
+				excercise.Name, 
+				difficultyString,
+				durationString));
 		}
 
+		Time.Text = durationInt.ToString() + "s";
 		Exercises.ItemsSource = applicableList;
 	}
 
@@ -99,7 +116,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1 },
 				new List<int> { 2 },
 				new List<int> { 3 },
-				new List<int> { 3 }
+				new List<int> { 2 }
 			));
 
 		excerciseList.Add(
@@ -108,7 +125,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 2 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 3 }
 			));
 
 		excerciseList.Add(
@@ -117,7 +134,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 1 }
 			));
 
 		excerciseList.Add(
@@ -126,7 +143,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1 },
 				new List<int> { 2 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 3 }
 			));
 
 		excerciseList.Add(
@@ -135,7 +152,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 2 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 3 }
 			));
 
 		excerciseList.Add(
@@ -144,7 +161,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 2 }
 			));
 
 		excerciseList.Add(
@@ -153,7 +170,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 2 }
 			));
 
 		excerciseList.Add(
@@ -162,7 +179,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 2 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 2 }
 			));
 
 		excerciseList.Add(
@@ -171,7 +188,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 2 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 3 }
 			));
 
 		excerciseList.Add(
@@ -180,7 +197,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1, 2 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 3 }
 			));
 
 		excerciseList.Add(
@@ -189,7 +206,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1 },
 				new List<int> { 2 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 3 }
 			));
 
 		excerciseList.Add(
@@ -198,7 +215,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 2 }
 			));
 
 		excerciseList.Add(
@@ -207,7 +224,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 1 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 1 }
 			));
 
 		excerciseList.Add(
@@ -216,7 +233,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 2 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 1 }
 			));
 
 		excerciseList.Add(
@@ -225,7 +242,7 @@ public partial class ResultPage : ContentPage
 				new List<int> { 2 },
 				new List<int> { 1 },
 				new List<int> { 1, 2, 3 },
-				new List<int> { 1, 2, 3 }
+				new List<int> { 2 }
 			));
 	}
 }
