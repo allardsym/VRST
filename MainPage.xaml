@@ -38,6 +38,7 @@
                         <x:String>Spine</x:String>
                         <x:String>Shoulder</x:String>
                         <x:String>Balance</x:String>
+                        <x:String>Elbow</x:String>
                         <x:String>Wrist</x:String>
                         <x:String>Hand/eye coordination</x:String>
                         <x:String>Cognitive</x:String>
@@ -105,14 +106,26 @@
             </HorizontalStackLayout>
 
             <Label
-                Text="Therapist Duration: 0"
+                Text="Recommended Therapist Duration"
                 x:Name="DoctorValue"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
-            <Slider Maximum="100"
-                    ValueChanged="OnDoctorValueSliderValueChanged" 
-                    Value="0"/>
+            <!-- <Slider Maximum="100" -->
+            <!--         ValueChanged="OnDoctorValueSliderValueChanged"  -->
+            <!--         Value="0"/> -->
+
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="15m"
+                    CheckedChanged="RadioButton_OnCheckedChanged" />
+                <RadioButton 
+                    Content="30m"
+                    CheckedChanged="RadioButton_OnCheckedChanged" />
+                <RadioButton 
+                    Content="45m"
+                    CheckedChanged="RadioButton_OnCheckedChanged" />
+            </HorizontalStackLayout>
 
 
 
@@ -148,19 +161,26 @@
             </HorizontalStackLayout>
 
             <Label
-                Text="Patient Duration: 0"
+                Text="Preferential Patient Duration"
                 x:Name="PatientValue"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
-            <Slider Maximum="100"
-                    ValueChanged="OnPatientValueSliderValueChanged" 
-                    Value="0"/>
-            <!-- <Entry  -->
-            <!--     x:Name="HrEntry" -->
-            <!--     Keyboard="Numeric" -->
-            <!--     TextChanged="InputView_OnTextChanged"> -->
-            <!-- </Entry> -->
+            <!-- <Slider Maximum="100" -->
+            <!--         ValueChanged="OnPatientValueSliderValueChanged"  -->
+            <!--         Value="0"/> -->
+
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="15m"
+                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
+                <RadioButton 
+                    Content="30m"
+                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
+                <RadioButton 
+                    Content="45m"
+                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
+            </HorizontalStackLayout>
 
             <Label
                 Text="Patient Exercise Type"

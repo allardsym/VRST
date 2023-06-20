@@ -109,4 +109,26 @@ public partial class MainPage : ContentPage
 		else
 			HrEntry.Text = "";
 	}
+
+	private void RadioButton_OnCheckedChanged(object sender, CheckedChangedEventArgs e)
+	{
+		var button = sender as RadioButton;
+		if (button != null && (string)button.Content == "15m")
+			Dataset.DoctorValue = 15;
+		if (button != null && (string)button.Content == "30m")
+			Dataset.DoctorValue = 30;
+		if (button != null && (string)button.Content == "45m")
+			Dataset.DoctorValue = 45;
+	}
+
+	private void RadioButton_Preferential_OnCheckedChanged(object sender, CheckedChangedEventArgs e)
+	{
+		var button = sender as RadioButton;
+		if (button != null && (string)button.Content == "15m")
+			Dataset.PatientValue = 15;
+		if (button != null && (string)button.Content == "30m")
+			Dataset.PatientValue = 30;
+		if (button != null && (string)button.Content == "45m")
+			Dataset.PatientValue = 45;
+	}
 }
