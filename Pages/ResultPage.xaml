@@ -40,6 +40,17 @@
             <Label x:Name="Time"
                    FontSize="18" />
         </HorizontalStackLayout>
+
+
+        <HorizontalStackLayout>
+            <Label
+                Text="Heart rate: "
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="18"
+                HorizontalOptions="Start" />
+            <Label x:Name="HR"
+                   FontSize="18" />
+        </HorizontalStackLayout>
         <!-- -->
         <!-- <HorizontalStackLayout> -->
         <!--     <Label -->
@@ -60,7 +71,7 @@
         <!--     </VerticalStackLayout> -->
         <!-- </HorizontalStackLayout> -->
 
-        <ListView x:Name="Exercises" BackgroundColor="Transparent" RowHeight="70">
+        <ListView x:Name="ExercisesListView" BackgroundColor="Transparent" RowHeight="70">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vrct1:ListExercise">
 

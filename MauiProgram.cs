@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using VRCT.Pages;
+using VRCT.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace VRCT;
@@ -17,9 +19,17 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-#if DEBUG
-		builder.Logging.AddDebug();
-#endif
+		builder.Services.AddSingleton<BluetoothLEService>();
+
+		builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
+		builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
+		builder.Services.AddSingleton<IMap>(Map.Default);
+
+		builder.Services.AddSingleton<DevicePageViewModel>();
+		builder.Services.AddSingleton<DevicePage>();
+
+		builder.Services.AddSingleton<HeartRatePageViewModel>();
+		builder.Services.AddSingleton<HeartRatePage>();
 
 		return builder.Build();
 	}

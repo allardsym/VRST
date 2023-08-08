@@ -9,8 +9,8 @@
             Padding="20,0"
             VerticalOptions="Fill">
 
-
             <Label
+                x:Name="InputLabel"
                 Text="Therapist input"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="16"
@@ -24,35 +24,44 @@
                   Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" 
                   HeightRequest="1"/>
 
-            <Label
-                Text="Category"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="15"
-                HorizontalOptions="Start" />
-            <Picker x:Name="BodyPartPicker" SelectedIndexChanged="OnPickerSelectedIndexChanged">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Legs</x:String>
-                        <x:String>Knee</x:String>
-                        <x:String>Hands</x:String>
-                        <x:String>Spine</x:String>
-                        <x:String>Shoulder</x:String>
-                        <x:String>Balance</x:String>
-                        <x:String>Elbow</x:String>
-                        <x:String>Wrist</x:String>
-                        <x:String>Hand/eye coordination</x:String>
-                        <x:String>Cognitive</x:String>
-                        <x:String>Upper body</x:String>
-                        <x:String>Focus</x:String>
-                        <x:String>Hip/Knee flexion</x:String>
-                        <x:String>Weight shifting</x:String>
-                        <x:String>Thighs</x:String>
-                        <x:String>Lower Limb</x:String>
-                        <x:String>Lungs</x:String>
-                        <x:String>Calming body and mind</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+            <!-- <Label -->
+            <!--     Text="Category" -->
+            <!--     SemanticProperties.HeadingLevel="Level1" -->
+            <!--     FontSize="15" -->
+            <!--     HorizontalOptions="Start" /> -->
+            <!-- -->
+            <!-- <Button -->
+            <!--     x:Name="CategoryBtn" -->
+            <!--     Text="Select Categories" -->
+            <!--     Clicked="CategoryBtn_OnClicked" -->
+            <!--     HorizontalOptions="Start" -->
+            <!--     WidthRequest="200" -->
+            <!-- /> -->
+
+            <!-- <Picker x:Name="BodyPartPicker" SelectedIndexChanged="OnPickerSelectedIndexChanged" > -->
+            <!--     <Picker.ItemsSource> -->
+            <!--         <x:Array Type="{x:Type x:String}"> -->
+            <!--             <x:String>Legs</x:String> -->
+            <!--             <x:String>Knee</x:String> -->
+            <!--             <x:String>Hands</x:String> -->
+            <!--             <x:String>Spine</x:String> -->
+            <!--             <x:String>Shoulder</x:String> -->
+            <!--             <x:String>Balance</x:String> -->
+            <!--             <x:String>Elbow</x:String> -->
+            <!--             <x:String>Wrist</x:String> -->
+            <!--             <x:String>Hand/eye coordination</x:String> -->
+            <!--             <x:String>Cognitive</x:String> -->
+            <!--             <x:String>Upper body</x:String> -->
+            <!--             <x:String>Focus</x:String> -->
+            <!--             <x:String>Hip/Knee flexion</x:String> -->
+            <!--             <x:String>Weight shifting</x:String> -->
+            <!--             <x:String>Thighs</x:String> -->
+            <!--             <x:String>Lower Limb</x:String> -->
+            <!--             <x:String>Lungs</x:String> -->
+            <!--             <x:String>Calming body and mind</x:String> -->
+            <!--         </x:Array> -->
+            <!--     </Picker.ItemsSource> -->
+            <!-- </Picker> -->
 
             <Label
                 Text="Position"
@@ -61,13 +70,10 @@
                 HorizontalOptions="Start" />
             <HorizontalStackLayout>
                 <RadioButton 
-                    Content="Lay"
+                    Content="Standing"
                     CheckedChanged="OnPositionRadioButtonCheckedChanged" />
                 <RadioButton 
-                    Content="Sit"
-                    CheckedChanged="OnPositionRadioButtonCheckedChanged" />
-                <RadioButton 
-                    Content="Stand"
+                    Content="Sitting/Laying"
                     CheckedChanged="OnPositionRadioButtonCheckedChanged" />
             </HorizontalStackLayout>
 
@@ -78,15 +84,89 @@
                 HorizontalOptions="Start" />
             <HorizontalStackLayout>
                 <RadioButton 
+                    Content="Both"
+                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
+                <RadioButton 
                     Content="Left"
                     CheckedChanged="OnHandsRadioButtonCheckedChanged" />
                 <RadioButton 
                     Content="Right"
                     CheckedChanged="OnHandsRadioButtonCheckedChanged" />
-                <RadioButton 
-                    Content="Both"
-                    CheckedChanged="OnHandsRadioButtonCheckedChanged" />
             </HorizontalStackLayout>
+
+            <Label
+                Text="Body part"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <RadioButton 
+                    Content="Lower"
+                    CheckedChanged="OnBodyRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Upper"
+                    CheckedChanged="OnBodyRadioButtonCheckedChanged" />
+                <RadioButton 
+                    Content="Whole"
+                    CheckedChanged="OnBodyRadioButtonCheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Injury"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+
+            <Picker x:Name="FocusPickerInjury" SelectedIndexChanged="OnFocusSelectedIndexChangedInjury" >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Shoulder</x:String>
+                        <x:String>Elbow</x:String>
+                        <x:String>Wrist</x:String>
+                        <x:String>Knee</x:String>
+                        <x:String>Ankle</x:String>
+                        <x:String>Core</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label
+                Text="Symptom"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+
+            <Picker x:Name="FocusPickerSymptom" SelectedIndexChanged="OnFocusSelectedIndexChangedSymptom" >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Pain</x:String>
+                        <x:String>Stiffness</x:String>
+                        <x:String>Reduced ROM</x:String>
+                        <x:String>Reduced strength</x:String>
+                        <x:String>Physical disorder/disease</x:String>
+                        <x:String>Overload/underload of tissue</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label
+                Text="Goal of rehabilitation"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+
+            <Picker x:Name="FocusPickerGoal" SelectedIndexChanged="OnFocusSelectedIndexChangedGoal" >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Propriocepsis / Reduce kinesiophobia</x:String>
+                        <x:String>Pain management</x:String>
+                        <x:String>Flexibility</x:String>
+                        <x:String>Endurance</x:String>
+                        <x:String>Increase ROM</x:String>
+                        <x:String>Increase physical activity</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
             <Label
                 Text="Therapist Difficulty"
@@ -117,16 +197,15 @@
 
             <HorizontalStackLayout>
                 <RadioButton 
-                    Content="15m"
+                    Content="10m"
+                    CheckedChanged="RadioButton_OnCheckedChanged" />
+                <RadioButton 
+                    Content="20m"
                     CheckedChanged="RadioButton_OnCheckedChanged" />
                 <RadioButton 
                     Content="30m"
                     CheckedChanged="RadioButton_OnCheckedChanged" />
-                <RadioButton 
-                    Content="45m"
-                    CheckedChanged="RadioButton_OnCheckedChanged" />
             </HorizontalStackLayout>
-
 
 
             <Label
@@ -142,6 +221,19 @@
                   Y2="0"
                   Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" 
                   HeightRequest="1"/>
+
+
+
+            <Label
+                Text="Age"
+                x:Name="AgeValue"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Start" />
+            <Entry
+                x:Name="AgeEntry"
+                Keyboard="Numeric"
+                TextChanged="AgeEntry_OnTextChanged"></Entry>
 
             <Label
                 Text="Patient Difficulty"
@@ -172,28 +264,14 @@
 
             <HorizontalStackLayout>
                 <RadioButton 
-                    Content="15m"
+                    Content="10m"
+                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
+                <RadioButton 
+                    Content="20m"
                     CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
                 <RadioButton 
                     Content="30m"
                     CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
-                <RadioButton 
-                    Content="45m"
-                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
-            </HorizontalStackLayout>
-
-            <Label
-                Text="Patient Exercise Type"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="15"
-                HorizontalOptions="Start" />
-            <HorizontalStackLayout>
-                <RadioButton 
-                    Content="Calm"
-                    CheckedChanged="OnPatientExerciseRadioButtonCheckedChanged" />
-                <RadioButton 
-                    Content="Sport"
-                    CheckedChanged="OnPatientExerciseRadioButtonCheckedChanged" />
             </HorizontalStackLayout>
 
 
@@ -218,11 +296,21 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
-            <Entry 
+            <HorizontalStackLayout>
+                <Entry 
                 x:Name="HrEntry"
                 Keyboard="Numeric"
                 TextChanged="InputView_OnTextChanged">
-            </Entry>
+                </Entry>
+
+                    <Button
+                    x:Name="GetHR"
+                    Text="Get hearth rate"
+                    Clicked="OnGetHRClicked"
+                    HorizontalOptions="End"
+                    WidthRequest="200"
+                />
+            </HorizontalStackLayout>
 
             <Button
                 x:Name="GetBtn"
