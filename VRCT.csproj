@@ -93,7 +93,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Raw\MLModel3.zip" />
+	  <None Remove="Resources\Raw\VRSM.zip" />
 	</ItemGroup>
 
   <ItemGroup>
