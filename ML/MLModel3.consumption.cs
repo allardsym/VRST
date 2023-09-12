@@ -96,7 +96,7 @@ namespace VRCT
 
         private static async Task<PredictionEngine<ModelInput, ModelOutput>> CreatePredictEngine()
 		{
-			const string filePath = "MLModel3.zip";
+			const string filePath = "VRSM.zip";
 			using var stream = await FileSystem.OpenAppPackageFileAsync(filePath);
 			var mlContext = new MLContext();
             ITransformer mlModel = mlContext.Model.Load(stream, out var _);

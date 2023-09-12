@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using Microsoft.ML.Data;
 using Microsoft.ML;
 using System.Linq;
@@ -8,6 +9,7 @@ public partial class ResultPage : ContentPage
 {
 	private List<Excercise> excerciseList = new List<Excercise>();
 	private List<ListExercise> applicableList = new List<ListExercise>();
+	private List<ListExercise> finalList = new List<ListExercise>();
 	
 	private int bodyPartsInt = 0;
 	private int handsInt = 0;
@@ -84,7 +86,14 @@ public partial class ResultPage : ContentPage
 					break;
 			}
 
-			var HeartRatePatientLinear = (1 - ((Dataset.HeartRatePatient / (220 - Dataset.Age) * 0.8)));
+			var a = (220 - Dataset.Age);
+			var s = Dataset.HeartRatePatient / a;
+			var d = s * 0.8;
+			var f = 1 - d;
+			var g = Dataset.HeartRatePatient;
+			var h = Dataset.HeartRatePatient;
+
+			var HeartRatePatientLinear = (1f - (((Dataset.HeartRatePatient) / (220f - Dataset.Age) * 0.8f)));
 
 			var difficulty = (Dataset.DoctorDifficulty * 0.7 + Dataset.PatientDifficulty * 0.3) * HeartRatePatientLinear * intensityDifficultyMultiplier;
 
@@ -108,23 +117,37 @@ public partial class ResultPage : ContentPage
 			switch (excercise.IntensityLevel)
 			{
 				case "Low":
-					intensityDurationMultiplier = 0.2;
+					intensityDurationMultiplier = 1;
 					break;
 				case "Medium":
 					intensityDurationMultiplier = 0.6;
 					break;
 				case "Hard":
-					intensityDurationMultiplier = 1;
+					intensityDurationMultiplier = 0.2;
 					break;
 			}
+			
+			var doctorVal = Dataset.DoctorValue switch
+			{
+				<= 10 => 33,
+				<= 20 => 66,
+				> 20 => 100
+			};
 
-			var duration = (Dataset.DoctorValue * 0.8 + Dataset.PatientValue * 0.2) * HeartRatePatientLinear * intensityDurationMultiplier;
+			var patientValue = Dataset.PatientValue switch
+			{
+				<= 10 => 33,
+				<= 20 => 66,
+				> 20 => 100
+			};
+
+			var duration = (doctorVal * 0.8 + patientValue * 0.2) * HeartRatePatientLinear * intensityDurationMultiplier;
 
 			durationString = duration switch
 			{
-				<= 10 => "10m",
-				<= 20 => "20m",
-				> 20 => "30m",
+				<= 34 => "10m",
+				<= 67 => "20m",
+				> 67 => "30m",
 				_ => "10m",
 			};
 			
@@ -152,53 +175,64 @@ public partial class ResultPage : ContentPage
 				break;
 		}
 
-		// ModelInput modelInput = new ModelInput()
-		// {
-		// 	Position = Dataset.Position,
-		// 	Hands = modelHand,
-		// 	Bodyparts = Dataset.BodyParts,
-		// 	Injuries = Dataset.Injury,
-		// 	Symptoms = Dataset.Symptom,
-		// 	Goals = Dataset.Goal,
-		// 	Outcome = null
-		// };
-
 		MLModel3.ModelInput modelInput = new MLModel3.ModelInput()
 		{
-			Position = "Standing",
-			Hands = 2,
-			Bodyparts = "Lower",
-			Injuries = "S",
-			Symptoms = "P",
-			Goals = "R/RK"
+			Position = Dataset.Position,
+			Hands = modelHand,
+			Bodyparts = Dataset.BodyParts,
+			Injuries = Dataset.Injury,
+			Symptoms = Dataset.Symptom,
+			Goals = Dataset.Goal,
+			Outcome = null
 		};
 
-
-
-		// var PredictionResult = Task.Run(string () => MLModel3.Predict(modelInput).PredictedLabel);
-		//
-		// var mlContext = new MLContext();
-		// var transformer = mlContext.Model.Load(Path.GetFullPath("MLModel3.zip"), out _);
-		// var predictionEngine = mlContext.Model.CreatePredictionEngine<MLModel3.ModelInput, MLModel3.ModelOutput>(transformer);
-		// var modelOutput = predictionEngine.Predict(modelInput);
-		// var labelBuffer = new VBuffer<ReadOnlyMemory<char>>();
-		// predictionEngine.OutputSchema["Score"].Annotations.GetValue("SlotNames", ref labelBuffer);
-		// var labels = labelBuffer.DenseValues().Select(l => l.ToString()).ToArray();
-		//
-		// var topScores = labels.ToDictionary(l => l, l => (decimal)modelOutput.Score[Array.IndexOf(labels, l)])
-		// 	.OrderByDescending(kv => kv.Value)
-		// 	.Take(3);
-		//
-		//
-		// var finalList = new List<ListExercise>();
-		// foreach (var x in topScores)
+		// MLModel3.ModelInput modelInput = new MLModel3.ModelInput()
 		// {
-		// 	finalList.AddRange(applicableList.Where(y => x.Key == y.Name));
-		// }
+		// 	Position = "Standing",
+		// 	Hands = 2,
+		// 	Bodyparts = "Lower",
+		// 	Injuries = "S",
+		// 	Symptoms = "P",
+		// 	Goals = "R/RK"
+		// };
 
-		ExercisesListView.ItemsSource = applicableList;
-		// ExercisesListView.ItemsSource = finalList;
+		var modelOutput = Task.Run(() => MLModel3.Predict(modelInput));
+		var labelBuffer = new VBuffer<ReadOnlyMemory<char>>();
+		MLModel3.PredictEngine.Value.OutputSchema["Score"].Annotations.GetValue("SlotNames", ref labelBuffer);
+		var labels = labelBuffer.DenseValues().Select(l => l.ToString()).ToArray();
+
+		var topScores = labels.ToDictionary(l => l, l => (decimal)modelOutput.Result.Score[Array.IndexOf(labels, l)])
+			.OrderByDescending(kv => kv.Value)
+			.Take(3);
+
+		foreach (var x in topScores)
+		{
+			Console.WriteLine(x.Key + " " + x.Value);
+		}
+
+		foreach (var x in applicableList)
+		{
+			foreach (var y in topScores)
+			{
+				if (x.Name == y.Key)
+				{
+					finalList.Add(x);
+				}
+			}
+		}
+
+		//ExercisesListView.ItemsSource = applicableList;
+		
+		ExercisesListView.ItemsSource = finalList;
 	}
-	
+
+	private static async Task<PredictionEngine<MLModel3.ModelInput, MLModel3.ModelOutput>> predEngineTask()
+	{
+		const string filePath = "MLModel3.zip";
+		using var stream = await FileSystem.OpenAppPackageFileAsync(filePath);
+		var mlContext = new MLContext();
+		ITransformer mlModel = mlContext.Model.Load(stream, out var _);
+		return mlContext.Model.CreatePredictionEngine<MLModel3.ModelInput, MLModel3.ModelOutput>(mlModel);
+	}
 }
 

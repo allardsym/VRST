@@ -21,17 +21,19 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 
 
-		MLModel3.ModelInput modelInput = new MLModel3.ModelInput()
-		{
-			Position = "Standing",
-			Hands = 2,
-			Bodyparts = "Lower",
-			Injuries = "S",
-			Symptoms = "P",
-			Goals = "R/RK"
-		};
-		var PredictionResult = Task.Run(string () => MLModel3.Predict(modelInput).PredictedLabel);
+		// MLModel3.ModelInput modelInput = new MLModel3.ModelInput()
+		// {
+		// 	Position = "Standing",
+		// 	Hands = 2,
+		// 	Bodyparts = "Lower",
+		// 	Injuries = "S",
+		// 	Symptoms = "P",
+		// 	Goals = "R/RK"
+		// };
 
+
+
+		
 
 	}
 
@@ -112,7 +114,7 @@ public partial class MainPage : ContentPage
 	{
 		var picker = (Picker)sender;
 		if (picker.SelectedIndex == 0)
-			Dataset.Goal = "R/RK";
+			Dataset.Goal = "P/RK";
 		if (picker.SelectedIndex == 1)
 			Dataset.Goal = "PM";
 		if (picker.SelectedIndex == 2)

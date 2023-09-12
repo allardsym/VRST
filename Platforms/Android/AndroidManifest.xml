@@ -14,5 +14,5 @@
 	<uses-feature android:name="android.hardware.bluetooth" android:required="true" />
 	<uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 	<uses-feature android:name="android.software.companion_device_setup" />
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="33" />
 </manifest>
