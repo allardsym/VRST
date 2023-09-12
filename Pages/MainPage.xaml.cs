@@ -10,12 +10,13 @@ using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions;
 using Microsoft.ML.Data;
 using Microsoft.ML;
+using Newtonsoft.Json.Linq;
 
 namespace VRCT;
 
 public partial class MainPage : ContentPage
 {
-
+	private bool LiveHr = false;
 	public MainPage()
 	{
 		InitializeComponent();
@@ -31,9 +32,9 @@ public partial class MainPage : ContentPage
 		// 	Goals = "R/RK"
 		// };
 
+		Dataset.DoctorValue = 15;
+		Dataset.PatientValue = 15;
 
-
-		
 
 	}
 
@@ -54,7 +55,7 @@ public partial class MainPage : ContentPage
 		// if (selectedIndex != -1)
 		// 	Dataset.BodyParts = picker.Items[selectedIndex];
 	}
-	
+
 	private async void OnGetClicked(object sender, EventArgs e)
 	{
 		await Shell.Current.GoToAsync("ResultPage");
@@ -107,7 +108,7 @@ public partial class MainPage : ContentPage
 			Dataset.Symptom = "PD";
 		if (picker.SelectedIndex == 5)
 			Dataset.Symptom = "O/UT";
-		
+
 	}
 
 	void OnFocusSelectedIndexChangedGoal(object sender, EventArgs e)
@@ -149,6 +150,7 @@ public partial class MainPage : ContentPage
 		if (button != null && (string)button.Content == "Hard")
 			Dataset.PatientDifficulty = 100;
 	}
+
 	void OnGameplayRadioButtonCheckedChanged(object sender, CheckedChangedEventArgs e)
 	{
 		var button = sender as RadioButton;
@@ -164,21 +166,27 @@ public partial class MainPage : ContentPage
 	{
 		if (sender is RadioButton button) Dataset.PatientExerciseType = (string)button.Content;
 	}
-	
+
 	private void OnDoctorValueSliderValueChanged(object sender, ValueChangedEventArgs args)
 	{
 		var value = (int)args.NewValue;
-		DoctorValue.Text = $"Doctor Duration: {value}";
+
+		if (value == 15 && Dataset.DoctorValue == 0)
+			return;
 
 		Dataset.DoctorValue = value;
+		DoctorValue.Text = String.Format("Recommended Therapist Duration: {0}m", value);
 	}
-	
+
 	private void OnPatientValueSliderValueChanged(object sender, ValueChangedEventArgs args)
 	{
 		var value = (int)args.NewValue;
-		PatientValue.Text = $"Patient Duration: {value}";
+
+		if (value == 15 && Dataset.PatientValue == 0)
+			return;
 
 		Dataset.PatientValue = value;
+		PatientValue.Text = String.Format("Preferential Patient Duration: {0}m", value);
 	}
 
 	private void OnHearthRatePatientSliderValueChanged(object sender, ValueChangedEventArgs args)
@@ -227,7 +235,7 @@ public partial class MainPage : ContentPage
 		if (button != null && (string)button.Content == "30m")
 			Dataset.PatientValue = 30;
 	}
-	
+
 	private void CategoryBtn_OnClicked(object sender, EventArgs e)
 	{
 		var popup = new BodyPartsPopup();
@@ -242,9 +250,19 @@ public partial class MainPage : ContentPage
 		Dataset.Age = value;
 	}
 
-	private async void OnGetHRClicked(object sender, EventArgs e)
+	private void OnGetHRClicked(object sender, EventArgs e)
 	{
-		//GET HR and set it
+		HrEntry.Text = Dataset.HeartRateDevice.ToString();
+		// HrEntry.IsReadOnly = !HrEntry.IsReadOnly;
+		// LiveHr = !LiveHr;
+		// var _ = UpdateHrText();
 	}
 
+	// private async Task UpdateHrText()
+	// {
+	// 	while (LiveHr)
+	// 	{
+	// 		HrEntry.Text = Dataset.HeartRateDevice.ToString();
+	// 	}
+	// }
 }

@@ -186,26 +186,26 @@
             </HorizontalStackLayout>
 
             <Label
-                Text="Recommended Therapist Duration"
+                Text="Recommended Therapist Duration: 15m"
                 x:Name="DoctorValue"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
-            <!-- <Slider Maximum="100" -->
-            <!--         ValueChanged="OnDoctorValueSliderValueChanged"  -->
-            <!--         Value="0"/> -->
+            <Slider Maximum="30"
+                    ValueChanged="OnDoctorValueSliderValueChanged"
+                    Value="15"/>
 
-            <HorizontalStackLayout>
-                <RadioButton 
-                    Content="10m"
-                    CheckedChanged="RadioButton_OnCheckedChanged" />
-                <RadioButton 
-                    Content="20m"
-                    CheckedChanged="RadioButton_OnCheckedChanged" />
-                <RadioButton 
-                    Content="30m"
-                    CheckedChanged="RadioButton_OnCheckedChanged" />
-            </HorizontalStackLayout>
+            <!-- <HorizontalStackLayout> -->
+            <!--     <RadioButton  -->
+            <!--         Content="10m" -->
+            <!--         CheckedChanged="RadioButton_OnCheckedChanged" /> -->
+            <!--     <RadioButton  -->
+            <!--         Content="20m" -->
+            <!--         CheckedChanged="RadioButton_OnCheckedChanged" /> -->
+            <!--     <RadioButton  -->
+            <!--         Content="30m" -->
+            <!--         CheckedChanged="RadioButton_OnCheckedChanged" /> -->
+            <!-- </HorizontalStackLayout> -->
 
 
             <Label
@@ -253,26 +253,26 @@
             </HorizontalStackLayout>
 
             <Label
-                Text="Preferential Patient Duration"
+                Text="Preferential Patient Duration: 15m"
                 x:Name="PatientValue"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Start" />
-            <!-- <Slider Maximum="100" -->
-            <!--         ValueChanged="OnPatientValueSliderValueChanged"  -->
-            <!--         Value="0"/> -->
+            <Slider Maximum="30"
+                    ValueChanged="OnPatientValueSliderValueChanged"
+                    Value="15"/>
 
-            <HorizontalStackLayout>
-                <RadioButton 
-                    Content="10m"
-                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
-                <RadioButton 
-                    Content="20m"
-                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
-                <RadioButton 
-                    Content="30m"
-                    CheckedChanged="RadioButton_Preferential_OnCheckedChanged" />
-            </HorizontalStackLayout>
+            <!-- <HorizontalStackLayout> -->
+            <!--     <RadioButton  -->
+            <!--         Content="10m" -->
+            <!--         CheckedChanged="RadioButton_Preferential_OnCheckedChanged" /> -->
+            <!--     <RadioButton  -->
+            <!--         Content="20m" -->
+            <!--         CheckedChanged="RadioButton_Preferential_OnCheckedChanged" /> -->
+            <!--     <RadioButton  -->
+            <!--         Content="30m" -->
+            <!--         CheckedChanged="RadioButton_Preferential_OnCheckedChanged" /> -->
+            <!-- </HorizontalStackLayout> -->
 
 
 

@@ -16,6 +16,7 @@
 		public static int PatientValue { get; set; }
 		public static string PatientExerciseType { get; set; }
 		public static int HeartRatePatient { get; set; }
+		public static int HeartRateDevice { get; set; }
 		public static int Gameplay { get; set; }
 	}
 }

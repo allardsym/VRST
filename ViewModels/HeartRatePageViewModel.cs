@@ -142,9 +142,13 @@ public partial class HeartRatePageViewModel : BaseViewModel
 
         byte flags = bytes[0];
         bool isHeartRateValueSizeLong = (flags & heartRateValueFormat) != 0;
-        Dataset.HeartRatePatient = isHeartRateValueSizeLong ? BitConverter.ToUInt16(bytes, 1) : bytes[1];
+        Dataset.HeartRateDevice = isHeartRateValueSizeLong ? BitConverter.ToUInt16(bytes, 1) : bytes[1];
         HeartRateValue = isHeartRateValueSizeLong ? BitConverter.ToUInt16(bytes, 1) : bytes[1];
-        Timestamp = DateTimeOffset.Now.LocalDateTime;
+		Timestamp = DateTimeOffset.Now.LocalDateTime;
+		if (Dataset.HeartRateDevice >= (220 - Dataset.Age) * 0.8)
+		{
+			_ = BluetoothLEService.ShowToastAsync($"WARNING! Heart rate threshold reached.");
+		}
     }
 
     private async Task DisconnectFromDeviceAsync()
@@ -197,7 +201,8 @@ public partial class HeartRatePageViewModel : BaseViewModel
         {
             Title = "Heart rate";
             HeartRateValue = 0;
-            Timestamp = DateTimeOffset.MinValue;
+            Dataset.HeartRatePatient = 0;
+			Timestamp = DateTimeOffset.MinValue;
             IsBusy = false;
             BluetoothLEService.Device?.Dispose();
             BluetoothLEService.Device = null;
