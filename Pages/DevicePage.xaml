@@ -56,8 +56,8 @@
                                         CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
                                 <VerticalStackLayout Padding="8">
-                                    <Label Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
-                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding Id}" />
+                                    <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
+                                    <Label Style="{StaticResource LargeLabel}" Text="{Binding Id}" />
                                 </VerticalStackLayout>
                             </Frame>
                         </Grid>

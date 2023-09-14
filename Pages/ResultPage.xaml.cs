@@ -11,17 +11,8 @@ public partial class ResultPage : ContentPage
 	private List<ListExercise> applicableList = new List<ListExercise>();
 	private List<ListExercise> finalList = new List<ListExercise>();
 	
-	private int bodyPartsInt = 0;
-	private int handsInt = 0;
-	private int positionInt = 0;
-	private int typeInt = 0;
-	private int difficultyInt = 0;
-	private int intensityInt = 0;
 	private string difficultyString;
-	private int durationInt;
 	private string durationString;
-	private int exerciseDuration = 5;
-
 	public ResultPage()
 	{
 		InitializeComponent();
@@ -34,36 +25,37 @@ public partial class ResultPage : ContentPage
 		HR.Text = " " + Dataset.HeartRatePatient;
 		Time.Text = " 50m";
 
-		bodyPartsInt = Dataset.BodyParts switch
+		var position = Dataset.Position switch
 		{
-			"Lower" => 0,
-			"Upper" => 1,
-			"Whole" => 1,
-			_ => 1,
+			"Standing" => "Stand",
+			"Sitting/Laying" => "Sit/Lay",
+			_ => "",
 		};
 
-		handsInt = Dataset.Hands switch
+		var hands = Dataset.Hands switch
 		{
-			"Both" => 0,
-			"Left" => 1,
-			"Right" => 2,
-			_ => 0,
+			"Both" => "2 hands",
+			"Left" => "1 or 2 hands",
+			"Right" => "1 or 2 hands",
+			_ => "",
 		};
 
-		positionInt = Dataset.Position switch
+		var bodyparts = Dataset.BodyParts switch
 		{
-			"Standing" => 0,
-			"Sitting/Laying" => 1,
-			_ => 0,
+			"Lower" => "Lower",
+			"Upper" => "Upper",
+			"Whole" => "Both",
+			_ => "",
 		};
+		
 
 		foreach (var excercise in excerciseList)
 		{
-			if (excercise.Position == Dataset.Position)
+			if (excercise.Position != position && excercise.Position != "Both")
 				continue;
-			if (excercise.Hands == Dataset.Hands)
+			if (excercise.Hands != hands && hands != "2 hands")
 				continue;
-			if (excercise.Bodyparts == Dataset.BodyParts)
+			if (excercise.Bodyparts != bodyparts && excercise.Bodyparts != "Whole")
 				continue;
 			if (!excercise.Injuries.Contains(Dataset.Injury))
 				continue;
