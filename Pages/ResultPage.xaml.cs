@@ -78,13 +78,6 @@ public partial class ResultPage : ContentPage
 					break;
 			}
 
-			var a = (220 - Dataset.Age);
-			var s = Dataset.HeartRatePatient / a;
-			var d = s * 0.8;
-			var f = 1 - d;
-			var g = Dataset.HeartRatePatient;
-			var h = Dataset.HeartRatePatient;
-
 			var HeartRatePatientLinear = (1f - (((Dataset.HeartRatePatient) / (220f - Dataset.Age) * 0.8f)));
 
 			var difficulty = (Dataset.DoctorDifficulty * 0.7 + Dataset.PatientDifficulty * 0.3) * HeartRatePatientLinear * intensityDifficultyMultiplier;
@@ -92,8 +85,8 @@ public partial class ResultPage : ContentPage
 			difficultyString = difficulty switch
 			{
 				<= 36 => "Easy",
-				<= 58 => "Medium",
-				> 58 => "Hard",
+				<= 68 => "Medium",
+				> 68 => "Hard",
 				_ => "Easy",
 			};
 
