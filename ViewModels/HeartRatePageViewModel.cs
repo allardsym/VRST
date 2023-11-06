@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Plugin.BLE.Abstractions;
@@ -80,7 +82,7 @@ public partial class HeartRatePageViewModel : BaseViewModel
                 {
                     if (BluetoothLEService.Device.Id.Equals(BluetoothLEService.NewDeviceCandidateFromDevicePage.Id))
                     {
-                        await BluetoothLEService.ShowToastAsync($"{BluetoothLEService.Device.Name} is already connected.");
+                        await BluetoothLEService.ShowToastAsync($"WARNING! Heart rate threshold reached.");
                         return;
                     }
 
@@ -117,7 +119,7 @@ public partial class HeartRatePageViewModel : BaseViewModel
                             await SecureStorage.Default.SetAsync("device_id", $"{BluetoothLEService.Device.Id}");
                             #endregion save device id to storage
 
-                            HeartRateMeasurementCharacteristic.ValueUpdated += HeartRateMeasurementCharacteristic_ValueUpdated;
+                            HeartRateMeasurementCharacteristic.ValueUpdated += HeartRateMeasurementCharacteristic_ValueUpdatedAsync;
                             await HeartRateMeasurementCharacteristic.StartUpdatesAsync();
                         }
                     }
@@ -135,7 +137,7 @@ public partial class HeartRatePageViewModel : BaseViewModel
         }
     }
 
-    private void HeartRateMeasurementCharacteristic_ValueUpdated(object sender, CharacteristicUpdatedEventArgs e)
+    private async void HeartRateMeasurementCharacteristic_ValueUpdatedAsync(object sender, CharacteristicUpdatedEventArgs e)
     {
         var bytes = e.Characteristic.Value;
         const byte heartRateValueFormat = 0x01;
@@ -145,13 +147,30 @@ public partial class HeartRatePageViewModel : BaseViewModel
         Dataset.HeartRateDevice = isHeartRateValueSizeLong ? BitConverter.ToUInt16(bytes, 1) : bytes[1];
         HeartRateValue = isHeartRateValueSizeLong ? BitConverter.ToUInt16(bytes, 1) : bytes[1];
 		Timestamp = DateTimeOffset.Now.LocalDateTime;
-		if (Dataset.HeartRateDevice >= (220 - Dataset.Age) * 0.8)
+		if (Dataset.HeartRateDevice >= (150 - Dataset.Age) * 0.8)
 		{
-			_ = BluetoothLEService.ShowToastAsync($"WARNING! Heart rate threshold reached.");
+			IAsyncRelayCommand HRTreached = new AsyncRelayCommand(HRreached);
+			CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+			string text = $"WARNING! Heart rate threshold reached.";
+			ToastDuration duration = ToastDuration.Short;
+			double fontSize = 14;
+
+			var toast = Toast.Make(text, duration, fontSize);
+
+
+			await MainThread.InvokeOnMainThreadAsync(async () => await Shell.Current.DisplayAlert($"WARNING", $"Heart rate threshold reached.", "OK"));
 		}
     }
 
-    private async Task DisconnectFromDeviceAsync()
+    private async Task HRreached()
+    {
+        await BluetoothLEService.ShowToastAsync($"WARNING! Heart rate threshold reached.");
+        return;
+    }
+
+
+	private async Task DisconnectFromDeviceAsync()
     {
         if (IsBusy)
         {
@@ -190,7 +209,7 @@ public partial class HeartRatePageViewModel : BaseViewModel
 
             await BluetoothLEService.Adapter.DisconnectDeviceAsync(BluetoothLEService.Device);
 
-            HeartRateMeasurementCharacteristic.ValueUpdated -= HeartRateMeasurementCharacteristic_ValueUpdated;
+            HeartRateMeasurementCharacteristic.ValueUpdated -= HeartRateMeasurementCharacteristic_ValueUpdatedAsync;
         }
         catch (Exception ex)
         {

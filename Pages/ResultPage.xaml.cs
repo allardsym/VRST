@@ -23,7 +23,7 @@ public partial class ResultPage : ContentPage
 		Position.Text = " " + Dataset.Position;
 		Hands.Text = " " + Dataset.Hands;
 		HR.Text = " " + Dataset.HeartRatePatient;
-		Time.Text = " 50m";
+		Time.Text = " 30m";
 
 		var position = Dataset.Position switch
 		{
@@ -51,12 +51,12 @@ public partial class ResultPage : ContentPage
 
 		foreach (var excercise in excerciseList)
 		{
-			if (excercise.Position != position && excercise.Position != "Both")
-				continue;
-			if (excercise.Hands != hands && hands != "2 hands")
-				continue;
-			if (excercise.Bodyparts != bodyparts && excercise.Bodyparts != "Whole")
-				continue;
+			// if (excercise.Position != position && excercise.Position != "Both")
+			// 	continue;
+			// if (excercise.Hands != hands && hands != "2 hands")
+			// 	continue;
+			// if (excercise.Bodyparts != bodyparts && excercise.Bodyparts != "Whole" && Dataset.BodyParts != "Whole")
+			// 	continue;
 			if (!excercise.Injuries.Contains(Dataset.Injury))
 				continue;
 			if (!excercise.Symptoms.Contains(Dataset.Symptom))

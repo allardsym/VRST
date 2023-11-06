@@ -64,7 +64,6 @@
                 Command="{Binding ConnectToDeviceCandidateAsyncCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 IsVisible="{Binding IsNotBusy}"
-                Style="{StaticResource ButtonOutline}"
                 Text="Connect" />
 
         <Button x:Name="DisconnectFromButton"
@@ -74,7 +73,6 @@
                 Command="{Binding DisconnectFromDeviceAsyncCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 IsVisible="{Binding IsNotBusy}"
-                Style="{StaticResource ButtonOutline}"
                 Text="Disconnect" />
 
         <ActivityIndicator x:Name="HeartRatePageActivityIndicator"
